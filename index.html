@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS4 Exploit Host</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 600px;
+            width: 90%;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #e0e0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .exploit-button {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exploit-button:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .exploit-button:hover:before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .exploit-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .bin-loader {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .bin-loader:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px 0 rgba(240, 147, 251, 0.4);
+        }
+
+        .fusion {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+
+        .fusion:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px 0 rgba(79, 172, 254, 0.4);
+        }
+
+        .info {
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .warning {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 200, 0, 0.2);
+            border-left: 4px solid #ffc800;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .exploit-button {
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>PS4 Exploit Host</h1>
+        <p class="subtitle">Vibe coded with love ♥</p>
+
+        <div class="button-container">
+            <button class="exploit-button bin-loader" onclick="loadBinLoader()">
+                <span>Bin Loader</span>
+            </button>
+
+            <button class="exploit-button fusion" onclick="loadFusion()">
+                <span>Fusion</span>
+            </button>
+        </div>
+
+        <div class="info">
+            <strong>PSFree + Lapse Exploit</strong><br>
+            PS4 Firmware 9.00
+        </div>
+
+        <div class="warning">
+            For research and educational purposes only
+        </div>
+    </div>
+
+    <script>
+        function loadBinLoader() {
+            // Navigate to bin loader exploit page
+            window.location.href = 'bin-loader.html';
+        }
+
+        function loadFusion() {
+            // Navigate to fusion exploit page
+            window.location.href = 'fusion.html';
+        }
+    </script>
+</body>
+</html>
