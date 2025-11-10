@@ -39,6 +39,7 @@ import {
 
 import * as rop from './module/chain.js';
 import * as config from './config.js';
+import { getExploitConfig } from './exploit-config.js';
 
 const t1 = performance.now();
 
@@ -1710,8 +1711,8 @@ export async function kexploit() {
     }
     
      if (localStorage.ExploitLoaded === "yes" && sessionStorage.ExploitLoaded!="yes") {
-           runBinLoader();
-            return new Promise(() => {});
+           PostExploit();
+           return new Promise(() => {});
       }
  
     // fun fact:
@@ -1856,25 +1857,50 @@ function PayloadLoader(Pfile)
     );	
    }
  };
+}
 
+function PostExploit()
+{
+    log("kexploit completed successfully!");
 
+    const exploitConfig = getExploitConfig();
+
+    try {
+        // Load AIO patches first
+        setTimeout(PayloadLoader("aio_patches.bin"), 500);
+        log("AIO Fixes Applied!");
+
+        // Execute mode-specific post-exploit actions
+        if (exploitConfig.mode === 'payload' && exploitConfig.payloadFile) {
+            log("Loading payload: " + exploitConfig.payloadFile);
+            setTimeout(() => {
+                try {
+                    PayloadLoader(exploitConfig.payloadFile);
+                    log("payload loaded!");
+                } catch (error) {
+                    log("Error loading payload: " + error.message);
+                    console.error(error);
+                }
+            }, 1000);
+        } else if (exploitConfig.mode === 'binloader') {
+            log("Starting bin loader...");
+            runBinLoader();
+            log("Bin loader ready on port 9020");
+        }
+
+        // Execute custom callback if provided
+        if (exploitConfig.onExploitComplete && typeof exploitConfig.onExploitComplete === 'function') {
+            exploitConfig.onExploitComplete();
+        }
+
+    } catch (error) {
+        log("Error in post-exploit: " + error.message);
+        console.error(error);
+    }
 }
 
 kexploit().then(() => {
-    log("kexploit completed successfully!");
-    log("Starting bin loader...");
-
-    try {
-        //Load ABC fix as a regular Payload
-        setTimeout(PayloadLoader("aio_patches.bin"),500);
-        log("AIO Fixes Applied.!");
-        
-        // Run the bin loader.
-        runBinLoader();
-    } catch (error) {
-        log("Error in runBinLoader: " + error.message);
-        console.error(error);
-    }
+    PostExploit();
 }).catch((error) => {
     log("kexploit failed: " + error.message);
     console.error(error);

@@ -140,6 +140,7 @@
     <script type="module">
         // Load UI bridge first
         import './psfree/ui-bridge.js';
+        import { setExploitMode } from './psfree/exploit-config.js';
 
         function updateStatus(message) {
             document.getElementById('status').textContent = message;
@@ -150,6 +151,14 @@
         }
 
         window.loadExploit = async function() {
+            // Configure exploit for bin loader mode
+            setExploitMode('binloader', {
+                onComplete: () => {
+                    updateStatus('Bin Loader is ready! Send payloads to port 9020');
+                    setProgress(100);
+                }
+            });
+
             updateStatus('Initializing PSFree exploit...');
             setProgress(5);
 
